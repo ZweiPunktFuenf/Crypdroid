@@ -1,0 +1,57 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <LinearLayout
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+    		android:padding="@dimen/padding_large" >
+
+		    <TextView
+		        android:id="@+id/text_greeting_large"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="@dimen/padding_small"
+		        android:text="@string/text_greeting_large"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		
+		    <TextView
+		        android:id="@+id/text_greeting_small"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="@dimen/padding_large"
+		        android:text="@string/text_greeting_small"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		
+		    <Button
+		        android:id="@+id/button_select_file"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="@dimen/padding_small"
+		        android:layout_marginTop="@dimen/padding_small"
+		        android:onClick="onClickFile"
+		        android:text="@string/button_select_file" />
+		
+		    <Button
+		        android:id="@+id/button_enter_text"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="@dimen/padding_large"
+		        android:onClick="onClickText"
+		        android:text="@string/button_enter_text" />
+		
+		    <TextView
+		        android:id="@+id/text_help"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="@dimen/padding_small"
+		        android:layout_marginTop="@dimen/padding_small"
+		        android:text="@string/text_help"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		    
+		</LinearLayout>
+		
+</ScrollView>

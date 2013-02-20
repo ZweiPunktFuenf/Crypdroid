@@ -1,0 +1,46 @@
+<resources>
+
+    <string name="app_name">Crypdroid</string>
+    <string name="button_decrypt">Entschlüsseln</string>
+    <string name="button_encrypt">Verschlüsseln</string>
+    <string name="button_enter_text">Text eingeben</string>
+    <string name="button_next">Weiter »</string>
+    <string name="button_save">Lokal speichern</string>
+    <string name="button_select_file">Datei auswählen</string>
+    <string name="button_send">Versenden</string>
+    <string name="button_send_as_attachment">Als Anhang versenden</string>
+    <string name="button_show">Anzeigen</string>
+    <string name="check_show_pw">Passwort anzeigen</string>
+    <string name="content_desc_file_action_chooser">Representation der ver-/entschlüsselten Daten</string>
+    <string name="error_file_not_found">Die ausgewählte Datei existiert nicht, bitte wählen Sie eine neue Datei aus</string>
+    <string name="error_file_to_big">Die ausgewählte Datei ist zu groß, bitte wählen Sie eine neue Datei aus</string>
+    <string name="error_internal">Interner Fehler, bitte versuchen Sie es erneut</string>
+    <string name="error_not_encrypted">Entweder sind die Daten beschädigt, oder sie sind nicht verschlüsselt</string>
+    <string name="error_not_saved">Die Datei muss für diese Aktion zuerst gespeichert werden</string>
+    <string name="error_reading_file">Die ausgewählte Datei konnte nicht gelesen werden, bitte wählen Sie eine neue Datei aus</string>
+    <string name="fileview_save_header_text">Hier speichern</string>
+    <string name="hint_password">Passwort eingeben</string>
+    <string name="hint_text">Text hier eingeben</string>
+    <string name="permission_private_label">Do not grant anyone</string>
+    <string name="permission_private_desc">Do not grant any Application this permission</string>
+    <string name="send_with">Senden mit &#8230;</string>
+    <string name="text_cipher_warn_show">Achtung, bei großen Geheimtexten kann es zu Problemen bei der Anzeige kommen. Bitte benutzen Sie die Option nur, wenn Sie sich sicher sind, dass der Geheimtext eine angemessene Länge aufweist.</string>
+    <string name="text_data_cipher_large">Geheimtext</string>
+    <string name="text_data_cipher_small">Was soll mit dem Geheimtext passieren?</string>
+    <string name="text_data_crypter_encrypted_large">Übergebende Datei erhalten</string>
+    <string name="text_data_crypter_encrypted_small">Passwort zum entschlüsseln eingeben</string>
+    <string name="text_data_crypter_file_small">Datei ver- oder entschlüsseln?</string>
+    <string name="text_data_crypter_text_large">Text eingegeben</string>
+    <string name="text_data_crypter_text_small">Text ver- oder entschlüsseln?</string>
+    <string name="text_data_plain_text_large">Klartext</string>
+    <string name="text_data_plain_text_small">Was soll mit dem Klartext passieren?</string>
+    <string name="text_data_plain_file_large">Klartext</string>
+    <string name="text_data_plain_file_small">Was soll mit dem Klartext passieren?</string>
+    <string name="text_greeting_large">Willkommen bei Crypdroid</string>
+    <string name="text_greeting_small">Wählen Sie eine der beiden Optionen aus um zu starten:</string>
+    <string name="text_help">Crypdroid ver- und entschlüsselt Ihre Dateien und Texte mit dem hochsicheren Verschlüsselungsverfahren AES-256.\n\nFür die Verschlüsselung wird ein von Ihrem Passwort abgeleiteter Session-Key verwendet. Die Ableitung des Session-Keys erfolgt nach dem Kryptographie-Standard PKCS #5.\n\nCrypdroid ist kompatibel mit dem Werkzeug "Verschlüsseln mit Passwort" in der Open-Source-Software <a href="http://www.cryptool.org">CrypTool 2</a>. Damit können Sie mit Crypdroid verschlüsselte Texte auf dem PC entschlüsseln und auch antworten.\n\nHaben Sie eine Idee für die Weiterentwicklung oder möchten Sie sich selbst von der Sicherheit überzeugen?\nCrypdroid ist Open Source und auf <a href="https://github.com/ZweiPunktFuenf/Crypdroid">github.com</a> verfügbar.</string>
+    <string name="title_activity_action_chooser">Erfolgreich! Was nun?</string>
+    <string name="title_activity_crypter">Crypdroid</string>
+    <string name="title_activity_text">Crypdroid</string>
+
+</resources>

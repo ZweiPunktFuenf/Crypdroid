@@ -1,0 +1,89 @@
+<resources>
+
+  <style name="Theme.Crypdroid" parent="android:style/Theme.Holo.Light">
+    
+    <!-- ActionBar -->
+    <item name="popupMenuStyle">@style/crypdroid_PopupMenu</item>
+    <item name="dropDownListViewStyle">@style/crypdroid_DropDownListView</item>
+    <item name="actionDropDownStyle">@style/crypdroid_DropDownNav</item>
+    <item name="actionBarStyle">@style/crypdroid_solid_ActionBar</item>
+    <item name="selectableItemBackground">@drawable/list_activated_holo</item>
+
+    <item name="android:popupMenuStyle">@style/crypdroid_PopupMenu</item>
+    <item name="android:dropDownListViewStyle">@style/crypdroid_DropDownListView</item>
+    <item name="android:actionDropDownStyle">@style/crypdroid_DropDownNav</item>
+    <item name="android:actionBarStyle">@style/crypdroid_solid_ActionBar</item>
+    <item name="android:panelBackground">@drawable/menu_hardkey_panel_crypdroid</item>
+    <item name="android:selectableItemBackground">@drawable/list_activated_holo</item>
+    <!-- /ActionBar -->
+    
+    <!-- Elements -->
+    <item name="android:editTextStyle">@style/crypdroid_EditText</item>
+    <item name="android:imageButtonStyle">@style/crypdroid_ImageButton</item>
+    <item name="android:buttonStyle">@style/crypdroid_Button</item>
+    <item name="android:listViewStyle">@style/crypdroid_ListView</item>
+    <item name="android:listViewWhiteStyle">@style/crypdroid_ListView</item>
+    <item name="android:spinnerItemStyle">@style/crypdroid_SpinnerItem</item>
+    <!-- /Elements -->
+    
+  </style>
+
+  <!-- ActionBar Styles -->
+  <style name="crypdroid_solid_ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
+    <item name="background">@drawable/ab_solid_crypdroid</item>
+    <item name="backgroundStacked">@drawable/ab_stacked_solid_crypdroid</item>
+    <item name="backgroundSplit">@drawable/ab_bottom_solid_crypdroid</item>
+
+    <item name="android:background">@drawable/ab_solid_crypdroid</item>
+    <item name="android:backgroundStacked">@drawable/ab_stacked_solid_crypdroid</item>
+    <item name="android:backgroundSplit">@drawable/ab_bottom_solid_crypdroid</item>
+  </style>
+  
+  <style name="crypdroid_PopupMenu" parent="@style/Widget.Sherlock.Light.ListPopupWindow">  
+    <item name="android:popupBackground">@drawable/menu_dropdown_panel_crypdroid</item> 
+  </style>
+  
+  <style name="crypdroid_DropDownListView" parent="@style/Widget.Sherlock.Light.ListView.DropDown">
+    <item name="android:listSelector">@drawable/selectable_background_crypdroid</item>
+  </style>
+  
+  <style name="crypdroid_DropDownNav" parent="@style/Widget.Sherlock.Light.Spinner.DropDown.ActionBar">
+    <item name="android:popupBackground">@drawable/menu_dropdown_panel_crypdroid</item>
+    <item name="android:dropDownSelector">@drawable/selectable_background_crypdroid</item>
+  </style>
+
+  <color name="pressed_crypdroid">#CCffd000</color>
+  <!-- /ActionBar Styles -->
+  
+  
+  <!-- Element Styles -->
+  <style name="crypdroid_EditText" parent="android:Widget.EditText">
+    <item name="android:background">@drawable/edit_text_holo_light</item>
+    <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="crypdroid_Button" parent="android:Widget.Button">
+    <item name="android:background">@drawable/btn_default_holo_light</item>
+    <item name="android:minHeight">48dip</item>
+    <item name="android:minWidth">64dip</item>
+    <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="crypdroid_ImageButton" parent="android:Widget.ImageButton">
+    <item name="android:background">@drawable/btn_default_holo_light</item>
+  </style>
+  
+  <style name="crypdroid_ListViewTheme.Crypdroid" parent="android:Widget.ListView">
+      <item name="android:listSelector">@drawable/list_selector_holo_light</item>
+  </style>
+
+  <style name="crypdroid_ListView" parent="android:Widget.ListView.White">
+      <item name="android:listSelector">@drawable/list_selector_holo_light</item>
+  </style>
+
+  <style name="crypdroid_SpinnerItem" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+      <item name="android:textColor">#000000</item>
+  </style>
+  <!-- Element Styles -->
+
+</resources>
