@@ -4,9 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.InvalidParameterException;
+
 import org.spongycastle.crypto.InvalidCipherTextException;
 import com.actionbarsherlock.app.SherlockActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,7 +30,6 @@ public class CrypterActivity extends SherlockActivity {
 	//================================================================================
 	// Constants
 	//================================================================================
-	//----  Consts  ------------------------------------------------------------------
 	private static final short MODE_CIPHER = 1;
 	private static final short MODE_TEXT = 2;
 	private static final short MODE_FILE = 3;
@@ -61,47 +63,49 @@ public class CrypterActivity extends SherlockActivity {
 	// UI Event Listener
 	//================================================================================
 	public void onClickEncrypt(View clicked) {
-		String password = ((EditText) findViewById(R.id.edit_password))
-								.getText().toString();
-		
 		try {
-			Crypter.encrypt(data, filename, password, this);
+			Crypter.encrypt(data, filename, getPassword(), this);
+			
+			Intent ac = new Intent(this, ActionChooserActivity.class);
+			ac.putExtra(ActionChooserActivity.EXTRA_MODE,
+				ActionChooserActivity.MODE_CIPHER
+			);
+			startActivity(ac);
 		} catch (InvalidCipherTextException e) {
 			Log.e("encrypt", "ungültiger Klartext", e);
-			return;
+			Toast.makeText(this, R.string.error_invalid_plaintext, Toast.LENGTH_LONG).show();
 		} catch (IOException e) {
 			Log.e("encrypt", "Fehler beim Schreiben der internen Dateien", e);
-			return;
+			Toast.makeText(this, R.string.error_internal_io, Toast.LENGTH_LONG).show();
+		} catch (InvalidParameterException e) {
+			Log.e("encrypt", "ungültiger Klartext", e);
+			Toast.makeText(this, R.string.error_invalid_plaintext, Toast.LENGTH_LONG).show();
 		}
-		
-		Intent ac = new Intent(this, ActionChooserActivity.class);
-		ac.putExtra(ActionChooserActivity.EXTRA_MODE,
-			ActionChooserActivity.MODE_CIPHER
-		);
-		startActivity(ac);
 	}
 	
 	public void onClickDecrypt(View clicked) {
-		String password = ((EditText) findViewById(R.id.edit_password))
-								.getText().toString();
-		String filename = null;
-		
 		try {
-			filename = Crypter.decrypt(data, password, this);
+			String filename = Crypter.decrypt(data, getPassword(), this, mode == MODE_TEXT);
+			
+			Intent ac = new Intent(this, ActionChooserActivity.class);
+			ac.putExtra(ActionChooserActivity.EXTRA_FILENAME, filename);
+			ac.putExtra(ActionChooserActivity.EXTRA_MODE,
+				ActionChooserActivity.MODE_PLAIN
+			);
+			startActivity(ac);
 		} catch (InvalidCipherTextException e) {
 			Log.e("decrypt", "ungültiger Ciphertext", e);
-			return;
+			Toast.makeText(this, R.string.error_wrong_password, Toast.LENGTH_LONG).show();
 		} catch (IOException e) {
 			Log.e("decrypt", "Fehler beim Schreiben der internen Dateien", e);
-			return;
+			Toast.makeText(this, R.string.error_internal_io, Toast.LENGTH_LONG).show();
+		} catch (InvalidParameterException e) {
+			Log.e("encrypt", "ungültiger Ciphertext", e);
+			Toast.makeText(this, R.string.error_not_encrypted, Toast.LENGTH_LONG).show();
+		} catch (IllegalArgumentException e) {
+			Log.e("encrypt", "ungültiger Ciphertext", e);
+			Toast.makeText(this, R.string.error_not_encrypted, Toast.LENGTH_LONG).show();
 		}
-		
-		Intent ac = new Intent(this, ActionChooserActivity.class);
-		ac.putExtra(ActionChooserActivity.EXTRA_FILENAME, filename);
-		ac.putExtra(ActionChooserActivity.EXTRA_MODE,
-			ActionChooserActivity.MODE_PLAIN
-		);
-		startActivity(ac);
 	}
 	
 	public void onClickShowPassword(View clicked) {
@@ -161,7 +165,7 @@ public class CrypterActivity extends SherlockActivity {
 			// got started by TextActivity
 			mode = MODE_TEXT;
 			
-			filename = "";
+			filename = null;
 			
 			try { data = openFileInput(Crypter.INTERNAL_IN); }
 			catch (FileNotFoundException e) {
@@ -204,12 +208,16 @@ public class CrypterActivity extends SherlockActivity {
 		//doesn't show the keyboard, workaround to simulate touch click on the view:
 		//http://stackoverflow.com/questions/5105354
 		findViewById(R.id.edit_password).postDelayed(new Runnable() {
-			@Override public void run() {
+			@SuppressLint("Recycle") @Override public void run() {
 				EditText edit = (EditText) findViewById(R.id.edit_password);
 				edit.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN , 0, 0, 0));
 				edit.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP , 0, 0, 0));                       
 			}
 		}, 200);
+	}
+	
+	private String getPassword() {
+		return ((EditText) findViewById(R.id.edit_password)).getText().toString();
 	}
 	
 

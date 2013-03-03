@@ -14,14 +14,9 @@ import android.webkit.MimeTypeMap;
 
 public class CrypProvider extends ContentProvider {
 	
-	public static final String URI = "content://de.zweipunktfuenf.crypdroid.crypprovider/file/encrypted.crypdroid";
+	public static final String URI = "content://de.zweipunktfuenf.crypdroid.crypprovider/file/";
+	public static final String FILE_ENCRYPTED = "encrypted.crypdroid";
 	public static final String MIME_TYPE = "application/de.zweipunktfuenf.crypdroid";
-	
-	private static final FilenameFilter FILE_TO_PROVIDE = new FilenameFilter() {
-		@Override public boolean accept(File dir, String filename) {
-			return Crypter.INTERNAL_OUT.equals(filename);
-		}
-	};
 
     @Override
     public boolean onCreate() {
@@ -37,9 +32,18 @@ public class CrypProvider extends ContentProvider {
     }
     
     @Override
-    public ParcelFileDescriptor openFile(Uri uri, String mode)
-    		throws FileNotFoundException {
-    	File[] internals = getContext().getFilesDir().listFiles(FILE_TO_PROVIDE);
+    public ParcelFileDescriptor openFile(final Uri uri, String mode)
+    		throws FileNotFoundException
+    {
+    	File[] internals = getContext().getFilesDir().listFiles(new FilenameFilter() {
+    		@Override public boolean accept(File dir, String filename) {
+    			if(uri.toString().matches(URI + FILE_ENCRYPTED)) {
+    				return Crypter.INTERNAL_ENC.equals(filename);
+    	    	} else {
+        			return Crypter.INTERNAL_OUT.equals(filename);
+    	    	}
+    		}
+    	});
     	if(1 != internals.length) {
     		Log.e(this.getClass().getSimpleName(),
 				"did not find output file (len="+internals.length+")"

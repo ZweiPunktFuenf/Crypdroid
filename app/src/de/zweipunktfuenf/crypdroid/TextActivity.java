@@ -1,6 +1,7 @@
 package de.zweipunktfuenf.crypdroid;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -115,7 +116,13 @@ public class TextActivity extends SherlockActivity {
 				findViewById(R.id.button_next).setVisibility(View.GONE);
 				
 				try {
-					FileInputStream in = openFileInput(Crypter.INTERNAL_OUT);
+					
+					FileInputStream in = null;
+					try {
+						in = openFileInput(Crypter.INTERNAL_ENC);
+					} catch(FileNotFoundException e) {
+						in = openFileInput(Crypter.INTERNAL_OUT);
+					}
 					StringBuffer str = new StringBuffer();
 
 					int len;
@@ -127,12 +134,11 @@ public class TextActivity extends SherlockActivity {
 //					Log.i("cryptext", str.toString());
 				} catch(IOException e) {
 					Log.e(this.getClass().getSimpleName(),
-						"error while reading internal_out",
+						"error while reading internal_enc",
 						e
 					);
 					
-					((EditText) findViewById(R.id.edit_text))
-						.setText(R.string.error_internal);
+					Toast.makeText(this, R.string.error_internal, Toast.LENGTH_LONG).show();
 				}
 				
 				

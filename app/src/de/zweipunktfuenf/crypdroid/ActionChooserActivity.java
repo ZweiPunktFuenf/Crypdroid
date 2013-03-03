@@ -102,7 +102,7 @@ public class ActionChooserActivity extends SherlockActivity {
 	
 	public void onClickSendAttachment(View clicked) {
 		Intent send = new Intent(Intent.ACTION_SEND);
-		send.putExtra(Intent.EXTRA_STREAM, Uri.parse(CrypProvider.URI));
+		send.putExtra(Intent.EXTRA_STREAM, Uri.parse(CrypProvider.URI + CrypProvider.FILE_ENCRYPTED));
 		send.setType(CIPHER_MIME_TYPE);
 		
 		// can't use this, because FLAG_GRANT_READ_URI_PERMISSION only grants read permission
@@ -149,7 +149,7 @@ public class ActionChooserActivity extends SherlockActivity {
 			    	startActivity(show);
 				} else {
 					show = new Intent(android.content.Intent.ACTION_VIEW);
-					show.setDataAndType(Uri.parse(CrypProvider.URI), mimeType);
+					show.setDataAndType(Uri.parse(CrypProvider.URI + Crypter.INTERNAL_OUT), mimeType);
 					startActivity(show);
 				}
 				break;
@@ -280,7 +280,7 @@ public class ActionChooserActivity extends SherlockActivity {
 	private byte[] readDataFile() {
 		FileInputStream fis = null;
 		try {
-			fis = openFileInput(Crypter.INTERNAL_OUT);
+			fis = openFileInput(Crypter.INTERNAL_ENC);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 			int size;
