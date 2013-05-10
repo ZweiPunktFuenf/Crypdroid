@@ -19,9 +19,14 @@
   along with Crypdroid.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <resources>
+  <!-- ActionBar Styles -->
+  <style name="crypdroid_solid_ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
+    <item name="background">@drawable/ab_solid_crypdroid</item>
+    <item name="backgroundStacked">@drawable/ab_stacked_solid_crypdroid</item>
+    <item name="backgroundSplit">@drawable/ab_bottom_solid_crypdroid</item>
 
-    <dimen name="padding_small">8dp</dimen>
-    <dimen name="padding_medium">8dp</dimen>
-    <dimen name="padding_large">16dp</dimen>
-
+    <item name="android:background">@drawable/ab_solid_crypdroid</item>
+    <item name="android:backgroundStacked">@drawable/ab_stacked_solid_crypdroid</item>
+    <item name="android:backgroundSplit">@drawable/ab_bottom_solid_crypdroid</item>
+  </style>
 </resources>

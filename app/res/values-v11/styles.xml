@@ -28,6 +28,13 @@
     <item name="actionDropDownStyle">@style/crypdroid_DropDownNav</item>
     <item name="actionBarStyle">@style/crypdroid_solid_ActionBar</item>
     <item name="selectableItemBackground">@drawable/list_activated_holo</item>
+
+    <item name="android:popupMenuStyle">@style/crypdroid_PopupMenu</item>
+    <item name="android:dropDownListViewStyle">@style/crypdroid_DropDownListView</item>
+    <item name="android:actionDropDownStyle">@style/crypdroid_DropDownNav</item>
+    <item name="android:actionBarStyle">@style/crypdroid_solid_ActionBar</item>
+    <item name="android:panelBackground">@drawable/menu_hardkey_panel_crypdroid</item>
+    <item name="android:selectableItemBackground">@drawable/list_activated_holo</item>
     <!-- /ActionBar -->
     
     <!-- Elements -->
@@ -46,6 +53,8 @@
     <item name="background">@drawable/ab_solid_crypdroid</item>
     <item name="backgroundStacked">@drawable/ab_stacked_solid_crypdroid</item>
     <item name="backgroundSplit">@drawable/ab_bottom_solid_crypdroid</item>
+
+    <item name="android:background">@drawable/ab_solid_crypdroid</item>
   </style>
   
   <style name="crypdroid_PopupMenu" parent="@style/Widget.Sherlock.Light.ListPopupWindow">  

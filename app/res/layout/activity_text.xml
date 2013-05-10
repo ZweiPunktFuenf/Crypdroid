@@ -1,3 +1,19 @@
+<!--
+  This file is part of Crypdroid.
+ 
+  Crypdroid is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  Crypdroid is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with Crypdroid.  If not, see <http://www.gnu.org/licenses/>.
+ -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -5,30 +21,39 @@
     android:layout_height="match_parent" >
     
     <LinearLayout
-        android:layout_width="match_parent" 
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-    		android:padding="@dimen/padding_large" >
-		    		
-		    <EditText
-		        android:id="@+id/edit_text"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginBottom="@dimen/padding_small"
-		        android:ems="10"
-		        android:hint="@string/hint_text"
-		        android:inputType="textMultiLine" >
-		
-		        <requestFocus />
-		    </EditText>
-		    
-		    <Button
-		        android:id="@+id/button_next"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:onClick="onClickNext"
-		        android:text="@string/button_next" />
-		    
+        android:padding="@dimen/padding_large" >
+
+        <Button
+            android:id="@+id/button_copy"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:drawableLeft="@drawable/ic_action_copy"
+            android:gravity="center_vertical|center_horizontal|left"
+            android:onClick="onClickCopy"
+            android:layout_marginBottom="@dimen/padding_small"
+            android:text="@string/button_copy" />
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_small"
+            android:ems="10"
+            android:hint="@string/hint_text"
+            android:inputType="textMultiLine" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickNext"
+            android:text="@string/button_next" />
     </LinearLayout>
     
 </ScrollView>

@@ -1,48 +1,72 @@
+<!--
+  Copyright 2013 Felix Große
+  Released under the GNU GPL license
+
+
+  This file is part of Crypdroid.
+ 
+  Crypdroid is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  Crypdroid is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with Crypdroid.  If not, see <http://www.gnu.org/licenses/>.
+ -->
 <resources>
 
     <string name="app_name">Crypdroid</string>
-    <string name="button_decrypt">Entschlüsseln</string>
-    <string name="button_encrypt">Verschlüsseln</string>
-    <string name="button_enter_text">Text eingeben</string>
-    <string name="button_next">Weiter »</string>
-    <string name="button_save">Lokal speichern</string>
-    <string name="button_select_file">Datei auswählen</string>
-    <string name="button_send">Versenden</string>
-    <string name="button_send_as_attachment">Als Anhang versenden</string>
-    <string name="button_show">Anzeigen</string>
-    <string name="check_show_pw">Passwort anzeigen</string>
-    <string name="content_desc_file_action_chooser">Representation der ver-/entschlüsselten Daten</string>
-    <string name="error_file_not_found">Die ausgewählte Datei existiert nicht, bitte wählen Sie eine neue Datei aus.</string>
-    <string name="error_file_to_big">Die ausgewählte Datei ist zu groß, bitte wählen Sie eine andere Datei aus.</string>
-    <string name="error_internal">Interner Fehler, bitte versuchen Sie es erneut.</string>
-    <string name="error_internal_io">Interner Fehler beim Lesen von Dateien. Bitte stellen Sie sicher, dass genügend Speicher zur Verfügung steht.</string>
-    <string name="error_invalid_plaintext">Es kam zu einem Fehler beim Verschlüsseln des Textes.</string>
-    <string name="error_not_encrypted">Entweder sind die Daten beschädigt, oder sie sind nicht verschlüsselt.</string>
-    <string name="error_reading_file">Die ausgewählte Datei konnte nicht gelesen werden, bitte wählen Sie eine neue Datei aus.</string>
-    <string name="error_wrong_password">Dies scheint nicht das richtige Passwort gewesen zu sein.</string>
-    <string name="fileview_save_header_text">Hier speichern</string>
-    <string name="hint_password">Passwort eingeben</string>
-    <string name="hint_text">Text hier eingeben</string>
+    <string name="button_copy">Copy to clipboard</string>
+    <string name="button_decrypt">Decrypt</string>
+    <string name="button_encrypt">Encrypt</string>
+    <string name="button_enter_text">Enter text</string>
+    <string name="button_next">Next »</string>
+    <string name="button_save">Save locally</string>
+    <string name="button_select_file">Select file</string>
+    <string name="button_send">Send</string>
+    <string name="button_send_as_attachment">Send as attachment</string>
+    <string name="button_show">Show</string>
+    <string name="check_show_pw">show password</string>
+    <string name="content_desc_file_action_chooser">icon representing the data</string>
+    <string name="error_internal">Aw, snap! Something went wrong, please try again.</string>
+    <string name="error_internal_io">Something went wrong while reading / writing internal files. Do you have enough free space?</string>
+    <string name="error_invalid_plaintext">Aw, snap! There was an error while encrypting your text.</string>
+    <string name="error_not_encrypted">The data could not be decrypted. Is this a ciphertext from Crypdroid or Cryptool2? May the data be corrupted?</string>
+    <string name="error_wrong_password">The data could not be decrypted. Is this the correct password?</string>
+    <string name="file_saved">The file was saved successfully.</string>
+    <string name="fileview_save_header_text">Save here</string>
+    <string name="hint_password">enter passwort</string>
+    <string name="hint_text">enter your message here</string>
+    <string name="notify_text_copied">The text was copied to the clipboard.</string>
+    <string name="save_dialog_title">Enter the filename</string>
+    <string name="save_dialog_message">Save the file with the following filename:</string>
+    <string name="save_dialog_ok">Save</string>
+    <string name="save_dialog_cancel">Cancel</string>
+    <string name="send_with">Send with &#8230;</string>
+    <string name="text_cipher_warn_show">Attention: Do not choose to show the ciphertext, if it is big (e.g. an encrypted image). This could cause Crypdroid to run out of memory.</string>
+    <string name="text_data_cipher_large">Ciphertext</string>
+    <string name="text_data_cipher_small">What do you want to do with it?</string>
+    <string name="text_data_crypter_encrypted_large">Received a file from another App</string>
+    <string name="text_data_crypter_encrypted_small">enter the passwort to encrypt</string>
+    <string name="text_data_crypter_file_large">You have chosen a file</string>
+    <string name="text_data_crypter_file_small">En- or decrypt the file?</string>
+    <string name="text_data_crypter_text_large">You have entered a text</string>
+    <string name="text_data_crypter_text_small">En- or decrypt the text?</string>
+    <string name="text_data_plain_text_large">Decrypted Text</string>
+    <string name="text_data_plain_text_small">What do you want to do with it?</string>
+    <string name="text_data_plain_file_large">Decrypted File</string>
+    <string name="text_data_plain_file_small">What do you want to do with it?</string>
+    <string name="text_greeting_large">Welcome to Crypdroid!</string>
+    <string name="text_greeting_small">Please choose 1 of the options to get started:</string>
+    <string name="text_help">Crypdroid en- and decrypts your files and texts with the AES-256 algorithm.\n\nYour data is encrypted with a session-key that is derived from a passwort entered by you. For this the cryptograpic standard PKCS #5 is used. The combination of the AES-256 with a session-key protects your data for years to come!\n\nCrypdroid is combatibel with the tool "Encrypt with Password" in the Open-Source-Software <a href="http://www.cryptool.org">CrypTool 2</a>. Therefore you are able to not only exchange encrypted texts between every Android device with Crypdroid but also with every PC that has Cryptool 2 installed.\n\nDo you have an idea on how to improve Crypdroid or do you want to lend a hand in the further development of Crypdroid? Or do you want to be sure that Crypdroid does protect your personal data?\nYou are in luck because Crypdroid is Open Source! The source code is published on <a href="https://github.com/ZweiPunktFuenf/Crypdroid">github.com</a>.</string>
+    <string name="title_activity_action_chooser">Success! What now?</string>
+    
     <string name="permission_private_label">Do not grant anyone</string>
     <string name="permission_private_desc">Do not grant any Application this permission</string>
-    <string name="send_with">Senden mit &#8230;</string>
-    <string name="text_cipher_warn_show">Achtung, bei großen Geheimtexten kann es zu Problemen bei der Anzeige kommen. Bitte benutzen Sie die Option nur, wenn Sie sich sicher sind, dass der Geheimtext eine angemessene Länge aufweist.</string>
-    <string name="text_data_cipher_large">Geheimtext</string>
-    <string name="text_data_cipher_small">Was soll mit dem Geheimtext passieren?</string>
-    <string name="text_data_crypter_encrypted_large">Übergebende Datei erhalten</string>
-    <string name="text_data_crypter_encrypted_small">Passwort zum entschlüsseln eingeben</string>
-    <string name="text_data_crypter_file_small">Datei ver- oder entschlüsseln?</string>
-    <string name="text_data_crypter_text_large">Text eingegeben</string>
-    <string name="text_data_crypter_text_small">Text ver- oder entschlüsseln?</string>
-    <string name="text_data_plain_text_large">Klartext</string>
-    <string name="text_data_plain_text_small">Was soll mit dem Klartext passieren?</string>
-    <string name="text_data_plain_file_large">Klartext</string>
-    <string name="text_data_plain_file_small">Was soll mit dem Klartext passieren?</string>
-    <string name="text_greeting_large">Willkommen bei Crypdroid</string>
-    <string name="text_greeting_small">Wählen Sie eine der beiden Optionen aus um zu starten:</string>
-    <string name="text_help">Crypdroid ver- und entschlüsselt Ihre Dateien und Texte mit dem hochsicheren Verschlüsselungsverfahren AES-256.\n\nFür die Verschlüsselung wird ein von Ihrem Passwort abgeleiteter Session-Key verwendet. Die Ableitung des Session-Keys erfolgt nach dem Kryptographie-Standard PKCS #5.\n\nCrypdroid ist kompatibel mit dem Werkzeug "Verschlüsseln mit Passwort" in der Open-Source-Software <a href="http://www.cryptool.org">CrypTool 2</a>. Damit können Sie mit Crypdroid verschlüsselte Texte auf dem PC entschlüsseln und auch antworten.\n\nHaben Sie eine Idee für die Weiterentwicklung oder möchten Sie sich selbst von der Sicherheit überzeugen?\nCrypdroid ist Open Source und auf <a href="https://github.com/ZweiPunktFuenf/Crypdroid">github.com</a> verfügbar.</string>
-    <string name="title_activity_action_chooser">Erfolgreich! Was nun?</string>
-    <string name="title_activity_crypter">Crypdroid</string>
-    <string name="title_activity_text">Crypdroid</string>
 
 </resources>

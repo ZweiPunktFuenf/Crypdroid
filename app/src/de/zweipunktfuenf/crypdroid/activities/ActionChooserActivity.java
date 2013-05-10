@@ -1,4 +1,24 @@
-package de.zweipunktfuenf.crypdroid;
+/**
+ * Copyright 2013 Felix Gro§e
+ * Released under the GNU GPL license
+ * 
+ * 
+ * This file is part of Crypdroid.
+ * 
+ * Crypdroid is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Crypdroid is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Crypdroid.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package de.zweipunktfuenf.crypdroid.activities;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -10,15 +30,15 @@ import java.io.IOException;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-import android.content.Context;
+import de.zweipunktfuenf.crypdroid.R;
+import de.zweipunktfuenf.crypdroid.provider.CrypProvider;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +50,6 @@ public class ActionChooserActivity extends SherlockActivity {
 	//================================================================================
 	//----  Extra Keys  --------------------------------------------------------------
 	public static final String EXTRA_MODE = "mode";
-	public static final String EXTRA_FILENAME = "filename";
 
 	//----  Extra Params  ------------------------------------------------------------
 	public static final short MODE_CIPHER = 1;
@@ -45,9 +64,6 @@ public class ActionChooserActivity extends SherlockActivity {
 	// Properties
 	//================================================================================
 	private short mode;
-	private String filename;
-	private String mimeType;
-	private File saved;
 	
 
 	//================================================================================
@@ -73,7 +89,7 @@ public class ActionChooserActivity extends SherlockActivity {
 		// cannot rely on this method getting called (see Javadoc)
 		Log.d(this.getClass().getSimpleName(), "cleaning internal files");
 		
-		Crypter.clearInternalFiles(this);
+		CrypdroidActivity.clearInternalData(this);
 		
 		super.onDestroy();
 	}
@@ -137,21 +153,23 @@ public class ActionChooserActivity extends SherlockActivity {
 				
 				show = new Intent(this, TextActivity.class);
 			    show.putExtra(TextActivity.EXTRA_MODE, TextActivity.MODE_SHOW);
+			    show.putExtra(TextActivity.EXTRA_TEXT, new String(readDataFile()));
 			    startActivity(show);
 		    	break;
 		    	
 			case MODE_PLAIN:
 				
-				if(null == mimeType) {
+//				if(null == mimeType) {
 					// no known mime type, display as text
 					show = new Intent(this, TextActivity.class);
 					show.putExtra(TextActivity.EXTRA_MODE, TextActivity.MODE_SHOW);
+				    show.putExtra(TextActivity.EXTRA_TEXT, new String(readDataFile()));
 			    	startActivity(show);
-				} else {
-					show = new Intent(android.content.Intent.ACTION_VIEW);
-					show.setDataAndType(Uri.parse(CrypProvider.URI + Crypter.INTERNAL_OUT), mimeType);
-					startActivity(show);
-				}
+//				} else {
+//					show = new Intent(android.content.Intent.ACTION_VIEW);
+//					show.setDataAndType(Uri.parse(CrypProvider.URI + CrypdroidActivity.FILE_TEMP_OUT), mimeType);
+//					startActivity(show);
+//				}
 				break;
 				
 		}
@@ -162,6 +180,9 @@ public class ActionChooserActivity extends SherlockActivity {
 		
 		fv.putExtra(FileviewActivity.EXTRA_MODE, FileviewActivity.MODE_SAVE);
 		fv.putExtra(FileviewActivity.EXTRA_ROOT, FileviewActivity.EXTERNAL_STORAGE);
+		fv.putExtra(FileviewActivity.EXTRA_FILENAME,
+			System.currentTimeMillis() + (mode == MODE_PLAIN ? ".txt" : ".crypdroid")
+		);
 		
 		startActivityForResult(fv, REQUEST_SAVE);
 	}
@@ -169,55 +190,65 @@ public class ActionChooserActivity extends SherlockActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
-			case REQUEST_SAVE:
-				if(RESULT_OK == resultCode) {
-					File file;
-					{// find unique filename
-						String dir = (String) data.getExtras()
-							.getSerializable(FileviewActivity.EXTRA_SELECTED_FILE)
-							+ "/";
-						
-						String fname = (null == filename || filename.isEmpty())
-							? "" + System.currentTimeMillis()
-							+ (mode == MODE_PLAIN ? ".txt" : "")
-							: filename;
-						
-						String[] parts = fname.split("\\.(?=[^\\.]+$)");
-						String fn = parts[0];
-						String ext = parts.length == 2 ? parts[1] : "";
-						int i = 1;
-						
-						String test = fn + (ext.isEmpty() ? "" : ("." + ext));
-						file = new File(dir + "/" + test);
-						
-						while(file.exists()) {
-							test = fn + "(" + ++i + ")"
-							     + (ext.isEmpty() ? "" : ("." + ext));
-							file = new File(dir + "/" + test);
-						}
-					}
+			case REQUEST_SAVE: if(RESULT_OK == resultCode) {
+				File file;
+				{// find unique filename
+					String dir = (String) data.getExtras()
+						.getSerializable(FileviewActivity.EXTRA_SELECTED_FILE)
+						+ "/";
 					
-					try { // write data to the file
-						file.createNewFile();
-						FileOutputStream fos = new FileOutputStream(file);
-						
-						fos.write(readDataFile());
-						fos.close();
-						
-						Toast.makeText(this,
-							"Datei wurde erfolgreich gespeichert",
-							Toast.LENGTH_LONG
-						).show();
-						
-						saved = file;
-					} catch(IOException e) {
-						Log.e(this.getClass().getSimpleName(),
-							file.getPath() + "/" + file.getName(),
-							e
-						);
+//					String fname = (null == filename || filename.isEmpty())
+//						? "" + System.currentTimeMillis()
+//						+ (mode == MODE_PLAIN ? ".txt" : "")
+//						: filename;
+					String fname = data.getExtras().getString(FileviewActivity.EXTRA_FILENAME);
+					
+					String[] parts = fname.split("\\.(?=[^\\.]+$)");
+					String fn = parts[0];
+					String ext = parts.length == 2 ? parts[1] : "";
+					
+					String test = fn + (ext.isEmpty() ? "" : ("." + ext));
+					file = new File(dir + "/" + test);
+
+					int i = 1;
+					while(file.exists()) {
+						test = fn + "(" + ++i + ")"
+						     + (ext.isEmpty() ? "" : ("." + ext));
+						file = new File(dir + "/" + test);
 					}
 				}
-				break;
+				
+				FileInputStream fis = null;
+				FileOutputStream fos = null;
+				try {
+					file.createNewFile();
+					fos = new FileOutputStream(file);
+					fis = openFileInput(CrypdroidActivity.FILE_TEMP_OUT);
+
+					int n;
+					byte[] buffer = new byte[1024];
+					while(-1 < (n = fis.read(buffer))) fos.write(buffer, 0, n);
+
+					Toast.makeText(this,
+						R.string.file_saved,
+						Toast.LENGTH_LONG
+					).show();
+					
+				} catch(FileNotFoundException e) {
+					Toast.makeText(this, R.string.error_internal, Toast.LENGTH_LONG).show();
+					Log.e("ActionChooserActivity#onActivityResult", "" + e.getClass(), e);
+				} catch (IOException e) {
+					Toast.makeText(this, R.string.error_internal, Toast.LENGTH_LONG).show();
+					Log.e("ActionChooserActivity#onActivityResult", "" + e.getClass(), e);
+				} finally {
+					if(null != fis) try { fis.close(); } catch(IOException e) {
+						Log.d("ActionChooserActivity#onActivityResult", "error while closing internal_out", e);
+					}
+					if(null != fos) try { fos.close(); } catch(IOException e) {
+						Log.d("ActionChooserActivity#onActivityResult", "error while closing file output", e);
+					}
+				}
+			} break;
 			default:
 				super.onActivityResult(requestCode, resultCode, data);
 		}
@@ -231,22 +262,22 @@ public class ActionChooserActivity extends SherlockActivity {
 		if(0 == mode) Log.e(this.getClass().getSimpleName(),
 			"Starting Intent does not contain a mode"
 		);
-		
-		filename = b.getString(EXTRA_FILENAME);
-		if(mode == MODE_PLAIN && null == filename)
-			Log.e(this.getClass().getSimpleName(),
-				"Starting Intent does not contain a filename"
-			);
-		
-		if(null != filename) {
-			// tried to use MimeTypeMap.getFileExtensionFromUrl()
-			// but this can only be used for URLs, see:
-			// http://code.google.com/p/android/issues/detail?id=5510
-			String ext = filename.substring(filename.lastIndexOf(".") + 1);
-			mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext);
-			
-			Log.d(this.getClass().getSimpleName(), filename + ": " + ext + ": " + mimeType);
-		}
+//		
+//		filename = b.getString(EXTRA_FILENAME);
+//		if(mode == MODE_PLAIN && null == filename)
+//			Log.e(this.getClass().getSimpleName(),
+//				"Starting Intent does not contain a filename"
+//			);
+//		
+//		if(null != filename) {
+//			// tried to use MimeTypeMap.getFileExtensionFromUrl()
+//			// but this can only be used for URLs, see:
+//			// http://code.google.com/p/android/issues/detail?id=5510
+//			String ext = filename.substring(filename.lastIndexOf(".") + 1);
+//			mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext);
+//			
+//			Log.d(this.getClass().getSimpleName(), filename + ": " + ext + ": " + mimeType);
+//		}
 	}
 	
 	private void init() {
@@ -258,17 +289,17 @@ public class ActionChooserActivity extends SherlockActivity {
 				((TextView) findViewById(R.id.text_data_small)).setText(R.string.text_data_cipher_small);
 				break;
 			case MODE_PLAIN:
-				if(this.filename.isEmpty()) {
+//				if(this.filename.isEmpty()) {
 					((ImageView) findViewById(R.id.image_data))
 						.setImageResource(R.drawable.ic_text);
 					((TextView) findViewById(R.id.text_data_large)).setText(R.string.text_data_plain_text_large);
 					((TextView) findViewById(R.id.text_data_small)).setText(R.string.text_data_plain_text_small);
-				} else {
-					((ImageView) findViewById(R.id.image_data))
-						.setImageResource(R.drawable.ic_file_photo);
-					((TextView) findViewById(R.id.text_data_large)).setText(filename);
-					((TextView) findViewById(R.id.text_data_small)).setText(R.string.text_data_plain_file_small);
-				}
+//				} else {
+//					((ImageView) findViewById(R.id.image_data))
+//						.setImageResource(R.drawable.ic_file_photo);
+//					((TextView) findViewById(R.id.text_data_large)).setText(filename);
+//					((TextView) findViewById(R.id.text_data_small)).setText(R.string.text_data_plain_file_small);
+//				}
 				
 				findViewById(R.id.button_send).setVisibility(View.GONE);
 				findViewById(R.id.button_send_as_attachment).setVisibility(View.GONE);
@@ -277,40 +308,32 @@ public class ActionChooserActivity extends SherlockActivity {
 		}
 	}
 	
+	@Deprecated
 	private byte[] readDataFile() {
 		FileInputStream fis = null;
 		try {
-			fis = openFileInput(Crypter.INTERNAL_ENC);
+			fis = openFileInput(CrypdroidActivity.FILE_TEMP_OUT);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 			int size;
 			byte[] buffer = new byte[4096];
-			while(-1 != (size = fis.read(buffer)))
-				baos.write(buffer, 0, size);
-			baos.flush();
+			while(-1 != (size = fis.read(buffer))) baos.write(buffer, 0, size);
 			
+			baos.flush();
 			return baos.toByteArray();
 			
 		} catch(FileNotFoundException e) {
-			Toast.makeText(this,
-				R.string.error_internal,
-				Toast.LENGTH_LONG
-			).show();
-			Log.e(this.getClass().getSimpleName(), "" + e.getClass(), e);
+			Toast.makeText(this, R.string.error_internal, Toast.LENGTH_LONG).show();
+			Log.e("ActionChooserActivity#readDataFile", "" + e.getClass(), e);
 			return null;
 		} catch (IOException e) {
-			Toast.makeText(this,
-				R.string.error_internal,
-				Toast.LENGTH_LONG
-			).show();
-			Log.e(this.getClass().getSimpleName(), "" + e.getClass(), e);
+			Toast.makeText(this, R.string.error_internal, Toast.LENGTH_LONG).show();
+			Log.e("ActionChooserActivity#readDataFile", "" + e.getClass(), e);
 			return null;
 		} finally {
 			if(null != fis) try { fis.close(); }
 			catch (IOException e) {
-				Log.d(this.getClass().getSimpleName(),
-					"error while closing internal_out", e
-				);
+				Log.d("ActionChooserActivity#readDataFile", "error while closing internal_out", e);
 			}
 		}
 	}
