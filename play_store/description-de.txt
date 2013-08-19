@@ -3,8 +3,8 @@ Die verschlüsselten Texte können dann zum Beispiel per E-Mail, WhatsApp oder S
 Crypdroid ist kompatibel mit dem Werkzeug "Verschlüsseln mit Passwort" in der Open-Source-Software <a href='www.cryptool.org'>CrypTool 2</a>. Damit können Sie mit Crypdroid verschlüsselte Texte auf dem PC entschlüsseln und beantworten.
 
 Crypdroid ver- und entschlüsselt Ihre Dateien und Texte mit dem hochsicheren Verschlüsselungsverfahren AES-256.
-Für die Verschlüsselung wird ein von Ihrem Passwort abgeleiteter Session-Key verwendet. Die Ableitung des Session-Keys erfolgt nach dem Kryptographie-Standard PKCS #5.
+Für die Verschlüsselung wird ein von Ihrem Passwort abgeleiteter Session-Key verwendet. Die Ableitung des Session-Keys erfolgt nach dem Kryptographie-Standard PKCS#5.
 
 -----
 Haben Sie eine Idee für die Weiterentwicklung oder möchten Sie sich selbst von der Sicherheit überzeugen?
-Crypdroid ist Open Source und auf <a href='https://github.com/ZweiPunktFuenf/Crypdroid'>github.com</a> verfügbar.
+Crypdroid ist Open Source und auf <a href='www.github.com/ZweiPunktFuenf/Crypdroid'>github.com</a> verfügbar.

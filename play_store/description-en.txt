@@ -1,9 +1,9 @@
 Crypdroid allows you to safely encrypt your private texts and files.
-The encrypted data can then be send via E-Mail, WhatsApp or SMS or can be stored in your DropBox. The possibilities vary depending on your installed Apps.
-Crypdroid allows you to not only exchange encrypted texts and files between different Android devices but also to securely communicate with a PC. This is enabled through the free Open Source Software <a href='www.cryptool.org'>CrypTool 2</a>. Texts can be en- and decrypted between Crypdroid and the Cryptool 2 tool "encrypt with password".
+The encrypted data can then be sent via e-mail, WhatsApp or SMS or can be stored in your DropBox. The possibilities vary depending on your installed apps.
+Crypdroid allows you to not only exchange encrypted texts and files between different Android devices but also to securely communicate with a PC. This is enabled through the free open-source software <a href='www.cryptool.org'>CrypTool 2</a>. Texts can be encrypted and decrypted between Crypdroid and the Cryptool 2 tool "encrypt with password".
 
-Your data is encrypted with the cryptographic algorithm AES-256. Your data is encrypted with a session key that is derived from your password via the PKCS #5 standard. These algorithms provides a good balance between security and performance.
+Your data is encrypted with the cryptographic algorithm AES-256. The session key that is used for encryption is derived from your password via the PKCS#5 standard. These algorithms provide a good balance between security and performance.
 
 -----
-Do you have an idea on how to improve Crypdroid or do you want to lend a hand in the further development of Crypdroid? Or do you want to be sure that Crypdroid does protect your personal data?
-Since Crypdroid is Open Source you can do all that! The source code is published on <a href="https://github.com/ZweiPunktFuenf/Crypdroid">github.com</a>
+Do you have an idea on how to improve Crypdroid or do you want to lend a hand in the further development of Crypdroid? Or do you want to be sure that Crypdroid does securely protect your personal data?
+Since Crypdroid is open source you can do all that. The source code is published on <a href="www.github.com/ZweiPunktFuenf/Crypdroid">github.com</a>

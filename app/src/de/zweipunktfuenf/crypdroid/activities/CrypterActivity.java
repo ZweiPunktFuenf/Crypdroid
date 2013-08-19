@@ -31,6 +31,7 @@ import java.security.InvalidParameterException;
 import org.spongycastle.crypto.InvalidCipherTextException;
 import com.actionbarsherlock.app.SherlockActivity;
 
+import de.zweipunktfuenf.crypdroid.PRNGFixes;
 import de.zweipunktfuenf.crypdroid.R;
 import de.zweipunktfuenf.crypdroid.mode.StringMode;
 
@@ -75,6 +76,17 @@ public class CrypterActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_crypter);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		try {
+			PRNGFixes.apply();
+			Log.i(CrypterActivity.class.getSimpleName(), "PRNGFix applied");
+		} catch(SecurityException e) {
+			Log.e(CrypterActivity.class.getSimpleName(),
+				"Could not apply PRNG Security Patches. " +
+				"Execution will continue but iv might be weak!",
+				e
+			);
+		}
 	    
 	    setProperties(getIntent());
 	    
